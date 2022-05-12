@@ -1,0 +1,46 @@
+y = y + y_change
+
+        snake_head = []             #clear the list
+        snake_head.append(x)        #add new positions to list
+        snake_head.append(y)        #add new positions  to list
+        # print(snake_head)
+        snake_list.append(snake_head)       ##add the head to snake list/ snake body
+        if len(snake_list) > length_snake:
+            del snake_list[0]
+        
+        for i in snake_list[:-1]:           #game over if snake collides with its own body
+            if i == snake_head:
+                game_finished()
+                score = 0
+                play()
+        
+        the_snake(snake_size,snake_list)    #draw the snake body with snake size
+        
+
+        
+        if x == food_x and y== food_y:     #food eat condition
+            food_x = int((random.randint(1,width -snake_size))/snake_size)*snake_size   #random values of position of food
+            food_y = int((random.randint(60,height-snake_size))/snake_size)*snake_size
+
+            score = score + 1
+            length_snake = length_snake + 1
+            print(score)
+            pygame.display.update()
+            
+               
+        if x == play_width or x == 0 or y == 50 or y == height:         #snake collides with the boundary check
+            game_finished()
+            score = 0
+            play()
+        
+
+        time.delay(speed_of_snake)
+        # print(speed_of_snake)
+        pygame.display.update()
+
+#define text   
+def text_objects(text, font, color):       
+    textSurface = font.render(text, True, color)
+    return textSurface, textSurface.get_rect()   
+
+play()
